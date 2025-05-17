@@ -1,0 +1,10 @@
+{
+	"include": ["src/**/*"],
+	"compilerOptions": {
+		"noImplicitAny": true,
+		"target": "ES2015",
+		"lib": ["DOM", "DOM.Iterable", "ES2015"],
+		"strict": true,
+		"outDir": "./dist"
+	}
+}
