@@ -13,15 +13,15 @@ class Messager<TMessage extends string[] = []> {
 	}
 
 	print() {
-		return this.message.join(" ") as ConcatMessage<TMessage>;
+		return this.message.join(" ") as JoinMessage<TMessage>;
 	}
 }
 
-type ConcatMessage<
+type JoinMessage<
 	TMessage extends string[],
 	TAcc extends string = "",
 > = TMessage extends [infer Word extends string, ...infer Rest extends string[]]
-	? ConcatMessage<Rest, TAcc extends "" ? Word : `${TAcc} ${Word}`>
+	? JoinMessage<Rest, TAcc extends "" ? Word : `${TAcc} ${Word}`>
 	: TAcc;
 
 const anotherChance = new Messager();
