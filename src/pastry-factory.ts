@@ -8,11 +8,13 @@ type Ingredients =
 
 class Pastry {
 	protected price: number;
+	protected amount: number;
 	public readonly type: PastryType;
 
 	constructor(type: PastryType, price: number) {
 		this.type = type;
 		this.price = price;
+		this.amount = 0;
 	}
 }
 
@@ -21,7 +23,7 @@ class Hörnchen extends Pastry {
 	protected ingredients: Record<Ingredients, number>;
 
 	constructor() {
-		super("hörnchen", 0.5);
+		super("hörnchen", 0.06);
 		this.ingredients = {
 			flour: 4.68,
 			margarine: 3.12,
@@ -35,6 +37,7 @@ class Hörnchen extends Pastry {
 	}
 
 	getIngredientsForAmount(amount: number) {
+		this.amount = amount;
 		return Object.fromEntries(
 			Object.entries(this.ingredients).map(([ingredient, gramm]) => [
 				ingredient,
@@ -45,6 +48,10 @@ class Hörnchen extends Pastry {
 
 	getRecipe() {
 		return this.recipe;
+	}
+
+	getEstimatedCosts() {
+		return this.amount * this.price;
 	}
 }
 
@@ -91,6 +98,6 @@ if (bestechungshörnchen.getOrder()) {
 	);
 } else {
 	console.log(
-		`You need: \nWhite Flour: ${ingredients.flour}g \nSugar: ${ingredients.sugar}g \nMargarine: ${ingredients.margarine}g \nCream Cheese: ${ingredients.cream_cheese}g \nGround Hazelnuts: ${ingredients.ground_hazelnuts}g \nfor ${amount} Hörnchen.\nFollow the instructions here: ${recipe}`,
+		`You need: \nWhite Flour: ${ingredients.flour}g \nSugar: ${ingredients.sugar}g \nMargarine: ${ingredients.margarine}g \nCream Cheese: ${ingredients.cream_cheese}g \nGround Hazelnuts: ${ingredients.ground_hazelnuts}g \nfor ${amount} Hörnchen.\nFollow the instructions here: ${recipe}.\nEstimated Costs: ${hörnchen.getEstimatedCosts()}€`,
 	);
 }
