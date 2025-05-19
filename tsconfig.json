@@ -1,10 +1,18 @@
 {
-	"include": ["src/**/*"],
-	"compilerOptions": {
-		"noImplicitAny": true,
-		"target": "ES2015",
-		"lib": ["DOM", "DOM.Iterable", "ES2015"],
-		"strict": true,
-		"outDir": "./dist"
-	}
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "noImplicitAny": true,
+    "target": "ES2022",
+    "lib": [
+      "DOM",
+      "ES2022"
+    ],
+    "strict": true,
+    "moduleDetection": "auto",
+    "outDir": "./dist"
+  }
 }

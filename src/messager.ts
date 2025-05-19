@@ -1,8 +1,9 @@
+import type { Equal, Expect } from "./test-helpers";
+
 class Messager<TMessage extends string[] = []> {
 	private message: TMessage;
 
 	constructor() {
-		// biome-ignore lint/suspicious/noExplicitAny: any is fine and needed here. ts will yell at us at this stage and the return type gets inferred later on
 		this.message = [] as any;
 	}
 
@@ -12,7 +13,7 @@ class Messager<TMessage extends string[] = []> {
 		return this as unknown as Messager<[...TMessage, TString]>;
 	}
 
-	print() {
+	getMessage() {
 		return this.message.join(" ") as JoinMessage<TMessage>;
 	}
 }
@@ -26,15 +27,10 @@ type JoinMessage<
 
 const anotherChance = new Messager();
 
-const i_mean_that = anotherChance
-	.add("It")
-	.add("would")
-	.add("be")
-	.add("nice")
-	.add("working")
-	.add("for")
-	.add("you");
+// Continue here and watch the types of i_mean_that and message change
+const i_mean_that = anotherChance.add("It");
+const message = i_mean_that.getMessage();
 
-const result = i_mean_that.print();
-
-console.log(result);
+console.log(message);
+// @ts-expect-error
+type test = Expect<Equal<typeof message, "It would be nice working for you">>;
